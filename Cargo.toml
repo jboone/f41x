@@ -1,0 +1,45 @@
+[package]
+authors = ["Jorge Aparicio <japaricious@gmail.com>", "Jared Boone <jared@sharebrained.com>"]
+build = "build.rs"
+description = "SM32F41x support crate"
+keywords = ["arm", "cortex-m", "stm32f41x", "stm32"]
+license = "MIT OR Apache-2.0"
+name = "f41x"
+repository = "https://github.com/jboone/f41x"
+version = "0.1.0"
+
+[dependencies]
+cortex-m = "0.1.5"
+ref_slice = "1.1.1"
+
+[dependencies.stm32f41x-memory-map]
+path = "../stm32f41x-memory-map"
+version = "0.1.0"
+
+[target.'cfg(target_arch = "arm")'.dependencies.alloc-cortex-m]
+optional = true
+version = "0.2.0"
+
+[dependencies.compiler-builtins-snapshot]
+features = ["memcpy"]
+version = "0.0.20161008"
+
+[dependencies.r0]
+optional = true
+version = "0.1.0"
+
+[dev-dependencies]
+m = "0.1.0"
+
+[features]
+alloc = ["alloc-cortex-m", "default-init", "static-ram"]
+default = ["default-exception-handler", "default-init", "default-panic-fmt", "interrupts"]
+#, "static-ram"]
+default-exception-handler = []
+default-init = []
+default-panic-fmt = []
+interrupts = []
+static-ram = ["r0"]
+
+[profile.release]
+lto = true
